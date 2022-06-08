@@ -1,7 +1,7 @@
 from django.urls    import path
-from movie.views    import *
+from my_movie.views    import *
 
-urlpartterns = [
+urlpatterns = [
     path(''        , ActorView.as_view()),
     path('/actor'  , ActorView.as_view()),
     path('/movie'  , MovieView.as_view())
