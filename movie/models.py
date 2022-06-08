@@ -6,7 +6,7 @@ class Actor(models.Model):
     first_name      = models.CharField(max_length=45)
     last_name       = models.CharField(max_length=45)
     date_of_birth   = models.DateField()
-    movies          = models.ManyToManyField('Movie',db_table='actor_movie')
+    movies          = models.ManyToManyField('Movie',db_table='actor_movie',related_name="tags")
 
     class Meta:
         db_table = 'actors'
