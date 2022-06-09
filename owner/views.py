@@ -3,6 +3,7 @@ from unittest import result
 
 from django.http    import JsonResponse
 from django.views   import View
+from requests import get
 from owner.models   import *
 
 class OwnerView(View):
@@ -18,16 +19,33 @@ class OwnerView(View):
         )
         return JsonResponse({'message' : 'created'} , status = 201)
 
+    # def get(self, request):
+    #     owners      = Owner.objects.all()
+    #     results     = []
+
+    #     for owner in owners:
+    #         results.append(
+    #             {
+    #                 "email" : owner.email ,
+    #                 "age"   : owner.age ,
+    #                 "name"  : owner.name 
+    #             }
+    #         )
+    #     return JsonResponse({'results' : results}, status = 200)
+    
     def get(self, request):
         owners      = Owner.objects.all()
         results     = []
 
         for owner in owners:
+            dog = Dog.objects.get(owner_id = owner.id)
             results.append(
                 {
                     "email" : owner.email ,
                     "age"   : owner.age ,
-                    "name"  : owner.name 
+                    "name"  : owner.name ,
+                    'dog'   :
+                    [dog.name , dog.age]
                 }
             )
         return JsonResponse({'results' : results}, status = 200)
