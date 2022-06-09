@@ -47,7 +47,7 @@ class OwnerView(View):
                     "age"   : owner.age ,
                     "name"  : owner.name ,
                     'dog'   :
-                    [[dog.name , dog.age]for dog in dogs]
+                    [{'name' : dog.name ,'age' : dog.age}for dog in dogs]
                 }
             )
         return JsonResponse({'results' : results}, status = 200)
