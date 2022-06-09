@@ -19,6 +19,7 @@ class OwnerView(View):
         )
         return JsonResponse({'message' : 'created'} , status = 201)
 
+    # onwer 강아지를 제외한 정보
     # def get(self, request):
     #     owners      = Owner.objects.all()
     #     results     = []
@@ -33,19 +34,20 @@ class OwnerView(View):
     #         )
     #     return JsonResponse({'results' : results}, status = 200)
     
+    # onwer 강아지를 포함한 정보
     def get(self, request):
         owners      = Owner.objects.all()
         results     = []
 
         for owner in owners:
-            dog = Dog.objects.get(owner_id = owner.id)
+            dogs = owner.dog_set.all()
             results.append(
                 {
                     "email" : owner.email ,
                     "age"   : owner.age ,
                     "name"  : owner.name ,
                     'dog'   :
-                    [dog.name , dog.age]
+                    [[dog.name , dog.age]for dog in dogs]
                 }
             )
         return JsonResponse({'results' : results}, status = 200)
